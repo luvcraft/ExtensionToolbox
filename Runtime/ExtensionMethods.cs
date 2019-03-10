@@ -70,6 +70,26 @@ namespace ExtensionToolbox
 		{
 			return (n < min) ? min : (n > max) ? max : n;
 		}
+
+		/// <summary>
+		/// return euler angle n, clamped between min and max
+		/// </summary>
+		/// <param name="min">Minimum value.</param>
+		/// <param name="max">Maximum value.</param>
+		public static float AngleMinMax(this float n, float min, float max)
+		{
+			while(n > 180)
+			{
+				n -= 360;
+			}
+
+			while(n < -180)
+			{
+				n += 360;
+			}
+
+			return (n < min) ? min : (n > max) ? max : n;
+		}
 	}
 
 	public static class VectorExtensions
@@ -104,6 +124,26 @@ namespace ExtensionToolbox
 		public static Vector3 x0z(this Vector3 v)
 		{
 			return new Vector3(v.x, 0, v.z);
+		}
+
+		/// <summary>
+		/// Returns a Vector2 with the X and Y swapped
+		/// </summary>
+		/// <param name="v"></param>
+		/// <returns></returns>
+		public static Vector2 yx(this Vector3 v)
+		{
+			return new Vector2(v.y, v.x);
+		}
+
+		/// <summary>
+		/// Returns a Vector2 with the X and Y swapped
+		/// </summary>
+		/// <param name="v"></param>
+		/// <returns></returns>
+		public static Vector2 yx(this Vector2 v)
+		{
+			return new Vector2(v.y, v.x);
 		}
 
 		/// <summary>
