@@ -510,4 +510,17 @@ namespace ExtensionToolbox
 			source.rotation = target.rotation;
 		}
 	}
+
+	public static class ColorExtensions
+	{
+		public static string ToHexString(this Color source)
+		{
+			int r = (int)(source.r * 255);
+			int g = (int)(source.g * 255);
+			int b = (int)(source.b * 255);
+			int a = (int)(source.a * 255);
+
+			return r.ToString("X2") + g.ToString("X2") + b.ToString("X2") + a.ToString("X2");
+		}
+	}
 }
