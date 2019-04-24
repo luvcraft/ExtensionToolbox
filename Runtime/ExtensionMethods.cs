@@ -243,6 +243,17 @@ namespace ExtensionToolbox
 
 			return s;
 		}
+
+        /// <summary>
+        /// Wraps the string in a rich text color tag.
+        /// </summary>
+        /// <returns>The wrapped string.</returns>
+        /// <param name="s">The string.</param>
+        /// <param name="color">The color.</param>
+        public static string WrapInColorTag(this string s, Color color)
+        {
+            return "<color=#" + color.ToHexString() + ">" + s + "</color>";
+        }
 	}
 
 	public static class ListExtensions
@@ -426,25 +437,29 @@ namespace ExtensionToolbox
 
 		/// <summary>
 		/// Gets a component of the specified type, adding it if there isn't already one
-		/// Also useful for checking to see if a component is present 
-		/// and adding it if it isn't, in one step
+        /// Also useful for checking to see if a component is present and adding it if it isn't, in one step
 		/// </summary>
 		/// <returns>The component.</returns>
 		public static T GetOrAddComponent<T>(this GameObject go) where T : Component
 		{
 			T component = go.GetComponent<T>();
-			return component ? component : go.AddComponent<T>();
+            if (component)
+            {
+                return component;
+            }
+            else
+            {
+                return go.AddComponent<T>();
+            }
 		}
 	}
 
 	public static class ComponentExtensions
 	{
-		/// <summary>
-		/// Instantiates a component with the same parent, position, rotation, and scale as the original
-		/// </summary>
-		public static Component CopyInPlace(this Component source)
+        /// <summary>Instantiates a component with the same parent, position, rotation, and scale as the original</summary>
+        public static T CopyInPlace<T>(this T source) where T : Component
 		{
-			Component temp = Object.Instantiate(source) as Component;
+            T temp = Object.Instantiate(source) as T;
 			temp.transform.SetParent(source.transform.parent);
 			temp.transform.SetPositionAndRotation(source.transform.position, source.transform.rotation);
 			temp.transform.localScale = source.transform.localScale;
