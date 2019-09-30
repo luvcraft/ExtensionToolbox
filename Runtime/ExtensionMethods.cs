@@ -244,16 +244,16 @@ namespace ExtensionToolbox
 			return s;
 		}
 
-        /// <summary>
-        /// Wraps the string in a rich text color tag.
-        /// </summary>
-        /// <returns>The wrapped string.</returns>
-        /// <param name="s">The string.</param>
-        /// <param name="color">The color.</param>
-        public static string WrapInColorTag(this string s, Color color)
-        {
-            return "<color=#" + color.ToHexString() + ">" + s + "</color>";
-        }
+		/// <summary>
+		/// Wraps the string in a rich text color tag.
+		/// </summary>
+		/// <returns>The wrapped string.</returns>
+		/// <param name="s">The string.</param>
+		/// <param name="color">The color.</param>
+		public static string WrapInColorTag(this string s, Color color)
+		{
+			return "<color=#" + color.ToHexString() + ">" + s + "</color>";
+		}
 	}
 
 	public static class ListExtensions
@@ -437,29 +437,29 @@ namespace ExtensionToolbox
 
 		/// <summary>
 		/// Gets a component of the specified type, adding it if there isn't already one
-        /// Also useful for checking to see if a component is present and adding it if it isn't, in one step
+		/// Also useful for checking to see if a component is present and adding it if it isn't, in one step
 		/// </summary>
 		/// <returns>The component.</returns>
 		public static T GetOrAddComponent<T>(this GameObject go) where T : Component
 		{
 			T component = go.GetComponent<T>();
-            if (component)
-            {
-                return component;
-            }
-            else
-            {
-                return go.AddComponent<T>();
-            }
+			if(component)
+			{
+				return component;
+			}
+			else
+			{
+				return go.AddComponent<T>();
+			}
 		}
 	}
 
 	public static class ComponentExtensions
 	{
-        /// <summary>Instantiates a component with the same parent, position, rotation, and scale as the original</summary>
-        public static T CopyInPlace<T>(this T source) where T : Component
+		/// <summary>Instantiates a component with the same parent, position, rotation, and scale as the original</summary>
+		public static T CopyInPlace<T>(this T source) where T : Component
 		{
-            T temp = Object.Instantiate(source) as T;
+			T temp = Object.Instantiate(source) as T;
 			temp.transform.SetParent(source.transform.parent);
 			temp.transform.SetPositionAndRotation(source.transform.position, source.transform.rotation);
 			temp.transform.localScale = source.transform.localScale;
@@ -523,6 +523,87 @@ namespace ExtensionToolbox
 		{
 			source.position = target.position;
 			source.rotation = target.rotation;
+		}
+
+		/// <summary>
+		/// Moves the source toward the target transform's position and rotation,
+		/// Zeno's-paradox-style.
+		/// Snaps to the desired position and rotation if they're very close.
+		/// </summary>
+		/// <param name="speed">how fast to move</param>
+		/// <returns>True if source matches target exactly</returns>
+		public static bool ZenoTo(this Transform source, Transform target, float speed)
+		{
+			return source.ZenoTo(target.position, target.rotation, speed);
+		}
+
+		/// <summary>
+		/// Moves the source toward the target position and rotation,
+		/// Zeno's-paradox-style.
+		/// Snaps to the desired position and rotation if they're very close.
+		/// </summary>
+		/// <param name="speed">how fast to move</param>
+		/// <returns>True if source matches target exactly</returns>
+		public static bool ZenoTo(this Transform source, Vector3 targetPos, Quaternion targetRot, float speed)
+		{
+			bool posMatch = false;
+			bool rotMatch = false;
+			if(Vector3.SqrMagnitude(source.position - targetPos) < (0.01f * 0.01f))
+			{
+				source.position = targetPos;
+				posMatch = true;
+			}
+			else
+			{
+				source.position = Vector3.Lerp(source.position, targetPos, speed * Time.deltaTime);
+			}
+
+			if(Quaternion.Angle(source.rotation, targetRot) < 0.5f)
+			{
+				source.rotation = targetRot;
+				rotMatch = true;
+			}
+			else
+			{
+				source.rotation = Quaternion.Slerp(source.rotation, targetRot, speed * Time.deltaTime);
+			}
+
+			return posMatch && rotMatch;
+		}
+
+		/// <summary>
+		/// Moves the source toward the target local position and rotation,
+		/// Zeno's-paradox-style.
+		/// Snaps to the desired local position and rotation if they're very close.
+		/// </summary>
+		/// <param name="speed">how fast to move</param>
+		/// <returns>True if source matches target exactly</returns>
+		public static bool LocalZenoTo(this Transform source, Vector3 targetPos, Quaternion targetRot, float speed)
+		{
+			bool posMatch = false;
+			bool rotMatch = false;
+
+			if(Vector3.SqrMagnitude(source.localPosition - targetPos) < (0.01f * 0.01f))
+			{
+				source.localPosition = targetPos;
+				posMatch = true;
+			}
+			else
+			{
+				source.localPosition = Vector3.Lerp(source.localPosition, targetPos, speed * Time.deltaTime);
+			}
+
+			if(Quaternion.Angle(source.localRotation, targetRot) < 0.5f)
+			{
+				source.localRotation = targetRot;
+				rotMatch = true;
+			}
+			else
+			{
+				source.localRotation = Quaternion.Slerp(source.localRotation, targetRot, speed * Time.deltaTime);
+			}
+
+			return posMatch && rotMatch;
 		}
 	}
 
