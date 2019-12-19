@@ -254,6 +254,26 @@ namespace ExtensionToolbox
 		{
 			return "<color=#" + color.ToHexString() + ">" + s + "</color>";
 		}
+
+		/// <summary>
+		/// Capitalize the first letter of the string, and lowercase the rest
+		/// </summary>
+		/// <param name="s">The string</param>
+		public static string Capitalize(this string s)
+		{
+			// Check for empty string.
+			if(string.IsNullOrEmpty(s))
+			{
+				return s;
+			}
+			else if(s.Length < 2)
+			{
+				return s.ToUpper();
+			}
+
+			// Return char and concat substring.
+			return char.ToUpper(s[0]) + s.Substring(1).ToLower();
+		}
 	}
 
 	public static class ListExtensions
