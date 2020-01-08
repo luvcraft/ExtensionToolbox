@@ -1,7 +1,12 @@
 {
-    "name": "com.studiohunty.extensiontoolbox",
-    "displayName": "Extension Toolbox",
-    "version": "0.0.1",
-    "unity": "2018.1",
-    "description": "R Hunter Gough's handy toolbox of extension methods for various data types."
+  "name": "com.studiohunty.extensiontoolbox",
+  "displayName": "Extension Toolbox",
+  "version": "0.0.1",
+  "unity": "2018.1",
+  "description": "R Hunter Gough's handy toolbox of extension methods for various data types.",
+  "type": "library",
+  "author": {
+    "name": "R Hunter Gough",
+    "url": "http://studiohunty.com/"
+  }
 }
