@@ -149,18 +149,34 @@ namespace ExtensionToolbox
 		/// <summary>
 		/// Turns a cartesian Vector2 into a polar Vector2 where x = angle and y = distance
 		/// </summary>
-		public static Vector2 Cart2Pol(this Vector2 cart)
+		/// <param name="clockwiseFromNorth">If true, returns angle as clockwise from North</param>
+		/// <returns>a polar Vector2 where x = angle and y = distance</returns>
+		public static Vector2 Cart2Pol(this Vector2 cart, bool clockwiseFromNorth = false)
 		{
-			float angle = -Mathf.Atan2(cart.x, cart.y) * Mathf.Rad2Deg;
+			float angle = Mathf.Atan2(cart.y, cart.x) * Mathf.Rad2Deg;
+
+			if(clockwiseFromNorth)
+			{
+				angle = Mathf.Atan2(cart.x, cart.y) * Mathf.Rad2Deg;
+			}
+
 			return new Vector2(angle, cart.magnitude);
 		}
 
 		/// <summary>
 		/// Turns a polar Vector2 where x = angle and y = distance into a cartesian Vector2
 		/// </summary>
-		public static Vector2 Pol2Cart(this Vector2 pol)
+		/// <param name="clockwiseFromNorth">If true, interprets angle as clockwise from North</param>
+		public static Vector2 Pol2Cart(this Vector2 pol, bool clockwiseFromNorth = false)
 		{
-			return new Vector2((float)Mathf.Sin(pol.x * Mathf.Deg2Rad), (float)-Mathf.Cos(pol.x * Mathf.Deg2Rad)) * pol.y;
+			if(clockwiseFromNorth)
+			{
+				return new Vector2(Mathf.Sin(pol.x * Mathf.Deg2Rad), Mathf.Cos(pol.x * Mathf.Deg2Rad)) * pol.y;
+			}
+			else
+			{
+				return new Vector2(Mathf.Cos(pol.x * Mathf.Deg2Rad), Mathf.Sin(pol.x * Mathf.Deg2Rad)) * pol.y;
+			}
 		}
 	}
 
