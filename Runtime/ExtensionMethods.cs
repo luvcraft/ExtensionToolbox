@@ -279,6 +279,19 @@ namespace ExtensionToolbox
 	public static class ListExtensions
 	{
 		/// <summary>
+		/// Adds an item to the list only if the list doesn't already contain the item.
+		/// If you want to do this for every item in the list, you should probably
+		/// use a HashSet instead of a List.
+		/// </summary>
+		public static void AddUnique<T>(this List<T> source, T item)
+		{
+			if(!source.Contains(item))
+			{
+				source.Add(item);
+			}
+		}
+
+		/// <summary>
 		/// Swaps the element at index1 with the element at index2
 		/// </summary>
 		public static void Swap<T>(this List<T> source, int index1, int index2)
@@ -300,13 +313,17 @@ namespace ExtensionToolbox
 		/// </summary>
 		public static void Shuffle<T>(this List<T> source)
 		{
-			for(int i = 0; i < source.Count; i++)
+			List<T> newList = new List<T>();
+
+			// fisher-yates shuffle
+			while(source.Count > 0)
 			{
-				int r = UnityEngine.Random.Range(0, source.Count);
-				T temp = source[i];
-				source[i] = source[r];
-				source[r] = temp;
+				int n = UnityEngine.Random.Range(0, source.Count);
+				newList.Add(source[n]);
+				source.RemoveAt(n);
 			}
+
+			source = newList;
 		}
 
 		/// <summary>
@@ -316,7 +333,7 @@ namespace ExtensionToolbox
 		{
 			if(source.Count < 1)
 			{
-				return default(T);
+				return default;
 			}
 
 			return source[source.Count - 1];
@@ -329,7 +346,7 @@ namespace ExtensionToolbox
 		{
 			if(source.Count < 1)
 			{
-				return default(T);
+				return default;
 			}
 			else if(source.Count == 1)
 			{
@@ -349,7 +366,7 @@ namespace ExtensionToolbox
 		{
 			if(source.Count < 1)
 			{
-				return default(T);
+				return default;
 			}
 
 			T temp = source[0];
@@ -365,7 +382,7 @@ namespace ExtensionToolbox
 		{
 			if(source.Count < 1)
 			{
-				return default(T);
+				return default;
 			}
 
 			T temp = source[source.Count - 1];
@@ -629,6 +646,10 @@ namespace ExtensionToolbox
 
 	public static class ColorExtensions
 	{
+		/// <summary>
+		/// Returns the color as a hex string, suitable for use in rich text / HTML
+		/// </summary>
+		/// <returns>a hex string representation of the color, with two digits for each channel</returns>
 		public static string ToHexString(this Color source)
 		{
 			int r = (int)(source.r * 255);
@@ -637,6 +658,15 @@ namespace ExtensionToolbox
 			int a = (int)(source.a * 255);
 
 			return r.ToString("X2") + g.ToString("X2") + b.ToString("X2") + a.ToString("X2");
+		}
+
+		/// <summary>
+		/// Sets the alpha of the provided color
+		/// </summary>
+		/// <param name="alpha">Alpha to set</param>
+		public static void SetAlpha(this Color source, float alpha)
+		{
+			source = new Color(source.r, source.g, source.b, alpha);
 		}
 	}
 }
