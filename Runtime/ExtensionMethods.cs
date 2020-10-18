@@ -339,7 +339,7 @@ namespace ExtensionToolbox
 				source.RemoveAt(n);
 			}
 
-			source = newList;
+			source.AddRange(newList);
 		}
 
 		/// <summary>
