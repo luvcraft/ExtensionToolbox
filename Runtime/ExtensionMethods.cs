@@ -72,7 +72,7 @@ namespace ExtensionToolbox
 		}
 
 		/// <summary>
-		/// return euler angle n, clamped between min and max
+		/// return degree angle n, clamped between min and max
 		/// </summary>
 		/// <param name="min">Minimum value.</param>
 		/// <param name="max">Maximum value.</param>
@@ -149,7 +149,10 @@ namespace ExtensionToolbox
 		/// <summary>
 		/// Turns a cartesian Vector2 into a polar Vector2 where x = angle and y = distance
 		/// </summary>
-		/// <param name="clockwiseFromNorth">If true, returns angle as clockwise from North</param>
+		/// <param name="clockwiseFromNorth">
+		/// If true, returns angle as clockwise from North
+		/// Otherwise, returns standard polar coordinates; counter-clockwise from East
+		/// </param>
 		/// <returns>a polar Vector2 where x = angle and y = distance</returns>
 		public static Vector2 Cart2Pol(this Vector2 cart, bool clockwiseFromNorth = false)
 		{
@@ -166,7 +169,10 @@ namespace ExtensionToolbox
 		/// <summary>
 		/// Turns a polar Vector2 where x = angle and y = distance into a cartesian Vector2
 		/// </summary>
-		/// <param name="clockwiseFromNorth">If true, interprets angle as clockwise from North</param>
+		/// <param name="clockwiseFromNorth">
+		/// If true, interprets angle as clockwise from North
+		/// Otherwise, assumes standard polar coordinates; counter-clockwise from East
+		/// </param>
 		public static Vector2 Pol2Cart(this Vector2 pol, bool clockwiseFromNorth = false)
 		{
 			if(clockwiseFromNorth)
