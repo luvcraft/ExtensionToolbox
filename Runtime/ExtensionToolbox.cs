@@ -362,6 +362,19 @@ namespace ExtensionToolbox
 		}
 
 		/// <summary>
+		/// returns the first element of the list, or null if the list is empty
+		/// </summary>
+		public static T FirstOrNull<T>(this List<T> source)
+		{
+			if(source.Count < 1)
+			{
+				return default;
+			}
+
+			return source[0];
+		}
+
+		/// <summary>
 		/// Returns a random element from the list
 		/// </summary>
 		public static T Random<T>(this List<T> source)
