@@ -696,12 +696,22 @@ namespace ExtensionToolbox
 		}
 
 		/// <summary>
+		/// returns the color with the specified alpha
+		/// </summary>
+		/// <param name="alpha">alpha to set</param>
+		/// <returns></returns>
+		public static Color WithAlpha(this Color source, float alpha)
+		{
+			return new Color(source.r, source.g, source.b, alpha);
+		}
+
+		/// <summary>
 		/// Sets the alpha of the provided color
 		/// </summary>
 		/// <param name="alpha">Alpha to set</param>
 		public static void SetAlpha(this Color source, float alpha)
 		{
-			source = new Color(source.r, source.g, source.b, alpha);
+			source = source.WithAlpha(alpha);
 		}
 	}
 }
