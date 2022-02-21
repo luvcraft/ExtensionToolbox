@@ -434,6 +434,22 @@ namespace ExtensionToolbox
 		}
 	}
 
+	public static class ArrayExtensions
+	{
+		/// <summary>
+		/// Returns the last element in the array
+		/// </summary>
+		public static T Last<T>(this T[] source)
+		{
+			if(source.Length < 1)
+			{
+				return default;
+			}
+
+			return source[source.Length - 1];
+		}
+	}
+
 	public static class CameraExtensions
 	{
 		/// <summary>
