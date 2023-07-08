@@ -129,8 +129,6 @@ namespace ExtensionToolbox
 		/// <summary>
 		/// Returns a Vector2 with the X and Y swapped
 		/// </summary>
-		/// <param name="v"></param>
-		/// <returns></returns>
 		public static Vector2 yx(this Vector3 v)
 		{
 			return new Vector2(v.y, v.x);
@@ -139,8 +137,6 @@ namespace ExtensionToolbox
 		/// <summary>
 		/// Returns a Vector2 with the X and Y swapped
 		/// </summary>
-		/// <param name="v"></param>
-		/// <returns></returns>
 		public static Vector2 yx(this Vector2 v)
 		{
 			return new Vector2(v.y, v.x);
@@ -182,6 +178,33 @@ namespace ExtensionToolbox
 			else
 			{
 				return new Vector2(Mathf.Cos(pol.x * Mathf.Deg2Rad), Mathf.Sin(pol.x * Mathf.Deg2Rad)) * pol.y;
+			}
+		}
+
+		/// <summary>
+		/// clamps this vector3 between min and max values on all 3 axes
+		/// </summary>
+		/// <param name="min">minimum values</param>
+		/// <param name="max">maximum values</param>
+		/// <param name="angle">whether value is linear or an angle</param>
+		public static Vector3 MinMax(this Vector3 v, Vector3 min, Vector3 max, bool angle = false)
+		{
+			if(angle)
+			{
+				return new Vector3(
+					v.x.AngleMinMax(min.x, max.x),
+					v.y.AngleMinMax(min.y, max.y),
+					v.z.AngleMinMax(min.z, max.z)
+					);
+
+			}
+			else
+			{
+				return new Vector3(
+					v.x.MinMax(min.x, max.x),
+					v.y.MinMax(min.y, max.y),
+					v.z.MinMax(min.z, max.z)
+					);
 			}
 		}
 	}
@@ -715,7 +738,6 @@ namespace ExtensionToolbox
 		/// returns the color with the specified alpha
 		/// </summary>
 		/// <param name="alpha">alpha to set</param>
-		/// <returns></returns>
 		public static Color WithAlpha(this Color source, float alpha)
 		{
 			return new Color(source.r, source.g, source.b, alpha);
