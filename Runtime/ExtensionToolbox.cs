@@ -716,6 +716,26 @@ namespace ExtensionToolbox
 
 			return posMatch && rotMatch;
 		}
+
+		/// <summary>
+		/// zeno the forward vector to the provided vector over time
+		/// </summary>
+		/// <param name="targetForward">target forward to zeno to</param>
+		/// <param name="speed">how fast to zeno. Higher is faster.</param>
+		/// <returns>true if zeno is done, false otherwise</returns>
+		public static bool ZenoForwardTo(this Transform source, Vector3 targetForward, float speed)
+		{
+			if(Vector3.Angle(source.forward, targetForward) < 0.5f)
+			{
+				source.forward = targetForward;
+				return true;
+			}
+			else
+			{
+				source.forward = Vector3.Slerp(source.forward, targetForward, speed * Time.deltaTime);
+				return false;
+			}
+		}
 	}
 
 	public static class ColorExtensions
