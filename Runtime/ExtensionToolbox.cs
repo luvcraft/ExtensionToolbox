@@ -772,4 +772,43 @@ namespace ExtensionToolbox
 			source = source.WithAlpha(alpha);
 		}
 	}
+
+	public static class AnimatorExtensions
+	{
+		/// <summary>
+		/// whether or not the animator contains a paramenter with the specified name
+		/// </summary>
+		/// <param name="parameterName">parameter name to check</param>
+		/// <returns>true if animator contains a paramater with the specified name, false otherwise</returns>
+		public static bool HasParameter(this Animator animator, string parameterName)
+		{
+			foreach(AnimatorControllerParameter param in animator.parameters)
+			{
+				if(param.name == parameterName)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// whether or not the animator contains a paramenter with the specified hash
+		/// </summary>
+		/// <param name="hash">parameter hash to check</param>
+		/// <returns>true if animator contains a paramater with the specified hash, false otherwise</returns>
+		public static bool HasParameter(this Animator animator, int hash)
+		{
+			foreach(AnimatorControllerParameter param in animator.parameters)
+			{
+				if(param.nameHash == hash)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
 }
