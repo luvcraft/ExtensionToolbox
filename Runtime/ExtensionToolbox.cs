@@ -382,7 +382,7 @@ namespace ExtensionToolbox
 		/// </summary>
 		public static void Shuffle<T>(this List<T> source)
 		{
-			List<T> newList = new List<T>();
+			List<T> newList = new();
 
 			// fisher-yates shuffle
 			while(source.Count > 0)
@@ -393,6 +393,17 @@ namespace ExtensionToolbox
 			}
 
 			source.AddRange(newList);
+		}
+
+		/// <summary>
+		/// returns a new list with all of this list's elements shuffled
+		/// </summary>
+		/// <returns>a list with all elements shuffled</returns>
+		public static List<T> Shuffled<T>(this List<T> source)
+		{
+			List<T> newList = new(source);
+			newList.Shuffle();
+			return newList;
 		}
 
 		/// <summary>
@@ -494,6 +505,17 @@ namespace ExtensionToolbox
 			}
 
 			return source[source.Length - 1];
+		}
+
+		/// <summary>
+		/// returns a new list with all of this array's elements shuffled
+		/// </summary>
+		/// <returns>a list with all elements shuffled</returns>
+		public static List<T> Shuffled<T>(this T[] source)
+		{
+			List<T> newList = new(source);
+			newList.Shuffle();
+			return newList;
 		}
 	}
 
