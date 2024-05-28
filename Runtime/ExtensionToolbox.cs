@@ -319,6 +319,30 @@ namespace ExtensionToolbox
 			// Return char and concat substring.
 			return char.ToUpper(s[0]) + s.Substring(1).ToLower();
 		}
+
+		public static string ToCamelCase(this string s, bool capitalizeFirst = false, bool keepCapitals = true)
+		{
+			if(string.IsNullOrEmpty(s))
+			{
+				return s;
+			}
+
+			var words = s.Replace('_', ' ').Split(' ');
+			int startingIndex = capitalizeFirst ? 0 : 1;
+			for(int i = startingIndex; i < words.Length; i++)
+			{
+				if(keepCapitals)
+				{
+					words[i] = $"{char.ToUpper(words[i][0])}{words[i][1..]}";
+				}
+				else
+				{
+					words[i] = $"{char.ToUpper(words[i][0])}{words[i][1..].ToLower()}";
+				}
+			}
+
+			return string.Join("", words);
+		}
 	}
 
 	public static class ListExtensions
