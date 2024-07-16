@@ -207,6 +207,33 @@ namespace ExtensionToolbox
 					);
 			}
 		}
+
+		/// <summary>
+		/// get the closest point on the line that runs through start and end to provided point
+		/// </summary>
+		/// <param name="start">start point of the line</param>
+		/// <param name="end">end point of the line</param>
+		/// <param name="clamp">if true, clamps the result between the start and end points of the line</param>
+		public static Vector3 ClosestPointOnLine(this Vector3 point, Vector3 start, Vector3 end, bool clamp = true)
+		{
+			Vector3 v = start + Vector3.Project(point - start, end - start);
+
+			if(clamp)
+			{
+				if(Vector3.Dot(start - v, start - end) < 0)
+				{
+					// if v is past the start, clamp it to the start
+					v = start;
+				}
+				else if(Vector3.Dot(end - v, end - start) < 0)
+				{
+					// if v is past the end, clamp it to the end
+					v = end;
+				}
+			}
+
+			return v;
+		}
 	}
 
 	public static class StringExtensions
