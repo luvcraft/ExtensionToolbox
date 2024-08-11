@@ -517,6 +517,17 @@ namespace ExtensionToolbox
 		{
 			source.Insert(0, item);
 		}
+
+		/// <summary>
+		/// unshift the item to the list if it's not already in ths list
+		/// </summary>
+		public static void UnshiftUnique<T>(this List<T> source, T item)
+		{
+			if(!source.Contains(item))
+			{
+				source.Insert(0, item);
+			}
+		}
 	}
 
 	public static class ArrayExtensions
