@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace ExtensionToolbox
@@ -32,6 +33,24 @@ namespace ExtensionToolbox
 		public static int MinMax(this int n, int min, int max)
 		{
 			return (n < min) ? min : (n > max) ? max : n;
+		}
+
+		/// <summary>
+		/// returns whether n is between min and max, exclusive
+		/// </summary>
+		/// <param name="min">minimum value. n must be more than this</param>
+		/// <param name="max">maximum value. n must be less than this</param>
+		/// <returns></returns>
+		public static bool Between(this int n, int min, int max)
+		{
+			if(min < max)
+			{
+				return n > min && n < max;
+			}
+			else
+			{
+				return n > max && n < min;
+			}
 		}
 	}
 
@@ -347,6 +366,12 @@ namespace ExtensionToolbox
 			return char.ToUpper(s[0]) + s.Substring(1).ToLower();
 		}
 
+		/// <summary>
+		/// convert the string to camel case
+		/// </summary>
+		/// <param name="capitalizeFirst">if true, capitalize the first letter (i.e. PascalCase)</param>
+		/// <param name="keepCapitals">if true, keep the original capitals in addition to camel casing</param>
+		/// <returns></returns>
 		public static string ToCamelCase(this string s, bool capitalizeFirst = false, bool keepCapitals = true)
 		{
 			if(string.IsNullOrEmpty(s))
@@ -369,6 +394,15 @@ namespace ExtensionToolbox
 			}
 
 			return string.Join("", words);
+		}
+
+		/// <summary>
+		/// string all non-alpha characters from the string
+		/// </summary>
+		/// <param name="stripNumeric">if true, also strip numeric characters</param>
+		public static string StripNonAlpha(this string s, bool stripNumeric = true)
+		{
+			return new Regex(stripNumeric ? "[^a-zA-Z]" : "[^a-zA-Z0-9]").Replace(s, "");
 		}
 	}
 
