@@ -41,7 +41,7 @@ namespace ExtensionToolbox
 		/// <param name="min">minimum value. n must be more than this</param>
 		/// <param name="max">maximum value. n must be less than this</param>
 		/// <returns></returns>
-		public static bool Between(this int n, int min, int max)
+		public static bool IsBetween(this int n, int min, int max)
 		{
 			if(min < max)
 			{
@@ -109,6 +109,25 @@ namespace ExtensionToolbox
 
 			return (n < min) ? min : (n > max) ? max : n;
 		}
+
+		/// <summary>
+		/// returns whether n is between min and max, exclusive
+		/// </summary>
+		/// <param name="min">minimum value. n must be more than this</param>
+		/// <param name="max">maximum value. n must be less than this</param>
+		/// <returns></returns>
+		public static bool IsBetween(this float n, float min, float max)
+		{
+			if(min < max)
+			{
+				return n > min && n < max;
+			}
+			else
+			{
+				return n > max && n < min;
+			}
+		}
+
 	}
 
 	public static class VectorExtensions
