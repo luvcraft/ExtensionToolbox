@@ -704,12 +704,12 @@ namespace ExtensionToolbox
 
 	public static class ComponentExtensions
 	{
-		/// <summary>Instantiates a component with the same parent, position, rotation, and scale as the original</summary>
+		/// <summary>
+		/// Instantiates a component with the same parent, position, rotation, and scale as the original
+		/// </summary>
 		public static T CopyInPlace<T>(this T source) where T : Component
 		{
-			T temp = Object.Instantiate(source) as T;
-			temp.transform.SetParent(source.transform.parent);
-			temp.transform.SetPositionAndRotation(source.transform.position, source.transform.rotation);
+			T temp = Object.Instantiate(source, source.transform.position, source.transform.rotation, source.transform.parent);
 			temp.transform.localScale = source.transform.localScale;
 
 			return temp;
