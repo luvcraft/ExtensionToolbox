@@ -277,27 +277,6 @@ namespace ExtensionToolbox
 	public static class StringExtensions
 	{
 		/// <summary>
-		/// Shifts the first "length" characters off the beginning of the string and returns them
-		/// </summary>
-		public static string Shift(this string s, int length)
-		{
-			string sub;
-
-			if(s.Length > length)
-			{
-				sub = s.Substring(0, length);
-				s = s.Substring(length);
-			}
-			else
-			{
-				sub = s;
-				s = "";
-			}
-
-			return sub;
-		}
-
-		/// <summary>
 		/// Parses the string into an int array separated by "separator"
 		/// </summary>
 		public static int[] ToIntArray(this string s, char separator)
