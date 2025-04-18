@@ -279,7 +279,7 @@ namespace ExtensionToolbox
 		/// <summary>
 		/// Parses the string into an int array separated by "separator"
 		/// </summary>
-		public static int[] ToIntArray(this string s, char separator)
+		public static int[] ToIntArray(this string s, char separator = ',')
 		{
 			s = s.Trim();
 			List<int> n = new List<int>();
@@ -700,11 +700,16 @@ namespace ExtensionToolbox
 		/// <summary>
 		/// Snaps the transform's local position and rotation to zero and local scale to one
 		/// </summary>
-		public static void SnapToZero(this Transform source)
+		/// <param name="includeScale">also snap the local scale to (1,1,1), otherwise leave it as is</param>
+		public static void SnapToZero(this Transform source, bool includeScale = true)
 		{
 			source.localPosition = Vector3.zero;
-			source.localScale = Vector3.one;
 			source.localRotation = Quaternion.identity;
+
+			if(includeScale)
+			{
+				source.localScale = Vector3.one;
+			}
 		}
 
 		/// <summary>
