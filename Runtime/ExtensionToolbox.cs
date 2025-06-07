@@ -281,6 +281,11 @@ namespace ExtensionToolbox
 		/// </summary>
 		public static int[] ToIntArray(this string s, char separator = ',')
 		{
+			if(string.IsNullOrEmpty(s))
+			{
+				return System.Array.Empty<int>();
+			}
+
 			s = s.Trim();
 			List<int> n = new List<int>();
 			string[] sa = s.Split(separator);
