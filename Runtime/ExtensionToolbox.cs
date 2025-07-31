@@ -63,24 +63,15 @@ namespace ExtensionToolbox
 		{
 			if(n * divisor == 0)
 			{
-				// if n or divisor is 0, return 0
 				return 0;
 			}
-			else if(n * divisor > 0)
+
+			n %= divisor;
+			if(n * divisor < 0)
 			{
-				// if n and divisor are the same sign, return normal mod
-				return n % divisor;
+				n += divisor;
 			}
-			else
-			{
-				// if n and divisor are opposite signs,
-				// add divisor to n until they match and return that
-				while(n * divisor < 0)
-				{
-					n += divisor;
-				}
-				return n;
-			}
+			return n;
 		}
 	}
 
@@ -168,24 +159,15 @@ namespace ExtensionToolbox
 		{
 			if(n * divisor == 0)
 			{
-				// if n or divisor is 0, return 0
 				return 0;
 			}
-			else if(n * divisor > 0)
+
+			n %= divisor;
+			if(n * divisor < 0)
 			{
-				// if n and divisor are the same sign, return normal mod
-				return n % divisor;
+				n += divisor;
 			}
-			else
-			{
-				// if n and divisor are opposite signs,
-				// add divisor to n until they match and return that
-				while(n * divisor < 0)
-				{
-					n += divisor;
-				}
-				return n;
-			}
+			return n;
 		}
 	}
 
