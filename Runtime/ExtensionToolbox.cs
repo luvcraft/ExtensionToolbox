@@ -52,6 +52,36 @@ namespace ExtensionToolbox
 				return n > max && n < min;
 			}
 		}
+
+		/// <summary>
+		/// give the modulo of the number, with sign matching the divisor
+		/// e.g. -10.ModToward(6) = 2 | 10.ModToward(-6) = -2
+		/// </summary>
+		/// <param name="divisor">number to modulo by</param>
+		/// <returns>this number moduloed toward divisor</returns>
+		public static int ModToward(this int n, int divisor)
+		{
+			if(n * divisor == 0)
+			{
+				// if n or divisor is 0, return 0
+				return 0;
+			}
+			else if(n * divisor > 0)
+			{
+				// if n and divisor are the same sign, return normal mod
+				return n % divisor;
+			}
+			else
+			{
+				// if n and divisor are opposite signs,
+				// add divisor to n until they match and return that
+				while(n * divisor < 0)
+				{
+					n += divisor;
+				}
+				return n;
+			}
+		}
 	}
 
 	public static class FloatExtensions
@@ -128,6 +158,35 @@ namespace ExtensionToolbox
 			}
 		}
 
+		/// <summary>
+		/// give the modulo of the number, with sign matching the divisor
+		/// e.g. -10.ModToward(6) = 2 | 10.ModToward(-6) = -2
+		/// </summary>
+		/// <param name="divisor">number to modulo by</param>
+		/// <returns>this number moduloed toward divisor</returns>
+		public static float ModToward(this float n, float divisor)
+		{
+			if(n * divisor == 0)
+			{
+				// if n or divisor is 0, return 0
+				return 0;
+			}
+			else if(n * divisor > 0)
+			{
+				// if n and divisor are the same sign, return normal mod
+				return n % divisor;
+			}
+			else
+			{
+				// if n and divisor are opposite signs,
+				// add divisor to n until they match and return that
+				while(n * divisor < 0)
+				{
+					n += divisor;
+				}
+				return n;
+			}
+		}
 	}
 
 	public static class VectorExtensions
