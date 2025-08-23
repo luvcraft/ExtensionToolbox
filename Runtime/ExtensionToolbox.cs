@@ -55,8 +55,12 @@ namespace ExtensionToolbox
 
 		/// <summary>
 		/// give the modulo of the number, with sign matching the divisor
-		/// e.g. -10.ModToward(6) = 2 | 10.ModToward(-6) = -2
+		/// this will NOT change the value of this variable
 		/// </summary>
+		/// <example>
+		/// -10.ModToward(6) = 2
+		/// 10.ModToward(-6) = -2
+		/// </example>
 		/// <param name="divisor">number to modulo by</param>
 		/// <returns>this number moduloed toward divisor</returns>
 		public static int ModToward(this int n, int divisor)
@@ -151,8 +155,12 @@ namespace ExtensionToolbox
 
 		/// <summary>
 		/// give the modulo of the number, with sign matching the divisor
-		/// e.g. -10.ModToward(6) = 2 | 10.ModToward(-6) = -2
+		/// this will NOT change the value of this variable
 		/// </summary>
+		/// <example>
+		/// -10.ModToward(6) = 2
+		/// 10.ModToward(-6) = -2
+		/// </example>
 		/// <param name="divisor">number to modulo by</param>
 		/// <returns>this number moduloed toward divisor</returns>
 		public static float ModToward(this float n, float divisor)
