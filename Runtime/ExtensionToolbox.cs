@@ -614,6 +614,30 @@ namespace ExtensionToolbox
 				source.Insert(0, item);
 			}
 		}
+
+		/// <summary>
+		/// duplicates the first item in the list, adds it to the list, 
+		/// and returns it
+		/// </summary>
+		public static T Grow<T>(this List<T> source) where T : Component
+		{
+			T newItem = source[0].CopyInPlace();
+			newItem.name = source[0].name.Replace("0", source.Count.ToString());
+			source.Add(newItem);
+			return newItem;
+		}
+
+		/// <summary>
+		/// duplicates the first item in the list, adds it to the list, 
+		/// and returns it
+		/// </summary>
+		public static GameObject Grow(this List<GameObject> source)
+		{
+			GameObject newItem = source[0].CopyInPlace();
+			newItem.name = source[0].name.Replace("0", source.Count.ToString());
+			source.Add(newItem);
+			return newItem;
+		}
 	}
 
 	public static class ArrayExtensions
@@ -732,6 +756,17 @@ namespace ExtensionToolbox
 			{
 				return go.AddComponent<T>();
 			}
+		}
+
+		/// <summary>
+		/// Instantiates a gameobject with the same parent, position, rotation, and scale as the original
+		/// </summary>
+		public static GameObject CopyInPlace(this GameObject source)
+		{
+			GameObject temp = Object.Instantiate(source, source.transform.position, source.transform.rotation, source.transform.parent);
+			temp.transform.localScale = source.transform.localScale;
+
+			return temp;
 		}
 	}
 
