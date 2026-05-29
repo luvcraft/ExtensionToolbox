@@ -321,6 +321,20 @@ namespace ExtensionToolbox
 
 			return v;
 		}
+
+		/// <summary>
+		/// turns a vector3 into a vector3 int, rounding all numbers toward zero
+		/// </summary>
+		/// <returns>a vector3 int corresponding to the vector3, with all numbers rounded toward zero</returns>
+		public static Vector3Int ToVector3Int(this Vector3 v)
+		{
+			return new()
+			{
+				x = (int)v.x,
+				y = (int)v.y,
+				z = (int)v.z
+			};
+		}
 	}
 
 	public static class StringExtensions
