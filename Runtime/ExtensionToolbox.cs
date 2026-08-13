@@ -1006,15 +1006,7 @@ namespace ExtensionToolbox
 		/// <returns>true if animator contains a paramater with the specified name, false otherwise</returns>
 		public static bool HasParameter(this Animator animator, string parameterName)
 		{
-			foreach(AnimatorControllerParameter param in animator.parameters)
-			{
-				if(param.name == parameterName)
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return HasParameter(animator, Animator.StringToHash(parameterName));
 		}
 
 		/// <summary>
